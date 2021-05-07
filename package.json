@@ -2,7 +2,7 @@
   "name": "js-convex-hull",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "js-convex-hull.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

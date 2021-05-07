@@ -78,3 +78,7 @@ function getJarvisConvexHull(points){
 
   return hull
 }
+
+if (typeof(module) !== "undefined"){
+  module.exports = getJarvisConvexHull
+}
