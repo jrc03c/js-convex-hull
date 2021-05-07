@@ -1,6 +1,6 @@
 # Introduction
 
-**js-convex-hull** gets the convex hull of a set of 2D points using the "gift-wrapping" (AKA "Jarvis march") algorithm.
+**js-convex-hull** gets the convex hull of a set of 2D points using [the "gift-wrapping" (AKA "Jarvis march") algorithm](https://en.wikipedia.org/wiki/Gift_wrapping_algorithm).
 
 ![](https://i.ibb.co/7jMvFQP/hull.png)
 
