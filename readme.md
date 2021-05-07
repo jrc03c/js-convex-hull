@@ -21,7 +21,7 @@ Add the script to your page:
 Or `require` it for use with bundlers:
 
 ```js
-const getJarvisConvexHull = require("js-convex-hull")
+const getConvexHull = require("js-convex-hull")
 ```
 
 Then call the function, passing in an array of 2D points:
@@ -35,7 +35,7 @@ let points = [
   ...
 ]
 
-let hull = getJarvisConvexHull(points)
+let hull = getConvexHull(points)
 ```
 
 Check out the [demo](/demo.html) to see it in action!

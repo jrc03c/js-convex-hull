@@ -54,7 +54,7 @@ function isRightTurn(p1, p2, p3){
   return p3Temp[0] > 0
 }
 
-function getJarvisConvexHull(points){
+function getConvexHull(points){
   if (points.length < 3){
     throw new Error("A minimum of 3 points are needed to compute a hull!")
   }
@@ -80,5 +80,5 @@ function getJarvisConvexHull(points){
 }
 
 if (typeof(module) !== "undefined"){
-  module.exports = getJarvisConvexHull
+  module.exports = getConvexHull
 }
