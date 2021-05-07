@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script src="index.js"></script>
+    <script>
+      CanvasRenderingContext2D.prototype.drawLine = function(x1, y1, x2, y2){
+        let self = this
+        self.beginPath()
+        self.moveTo(x1, y1)
+        self.lineTo(x2, y2)
+        self.stroke()
+        return self
+      }
+
+      let width = 512
+      let height = 512
+      let canvas = document.createElement("canvas")
+      canvas.width = width
+      canvas.height = height
+      document.body.appendChild(canvas)
+
+      let context = canvas.getContext("2d")
+      context.lineWidth = 4
+
+      function loop(){
+        context.fillStyle = "rgb(235, 235, 235)"
+        context.fillRect(0, 0, width, height)
+
+        let p1 = [Math.random() * width, Math.random() * height]
+        let p2 = [Math.random() * width, Math.random() * height]
+        let p3 = [Math.random() * width, Math.random() * height]
+        let points = [p1, p2, p3]
+
+        // draw points
+        context.fillStyle = "black"
+        context.font = `10px monospace`
+        context.textAlign = "center"
+        context.textBaseline = "middle"
+
+        points.forEach((p, i) => {
+          context.beginPath()
+          context.arc(p[0], p[1], 10, 0, 2 * Math.PI, false)
+          context.fill()
+          context.fillText(`p${i}`, p[0], p[1] - 18)
+        })
+
+        // draw lines
+        let arrowLength = 15
+        let dir1 = [p2[0] - p1[0], p2[1] - p1[1]]
+        let angle1 = Math.atan(dir1[1] / dir1[0])
+        if (dir1[0] < 0) angle1 += Math.PI
+        let length1 = getMagnitude(dir1)
+
+        context.save()
+        context.translate(p1[0], p1[1])
+        context.rotate(angle1)
+        context.strokeStyle = "blue"
+        context.drawLine(0, 0, length1, 0)
+        context.drawLine(length1, 0, length1 - arrowLength, arrowLength)
+        context.drawLine(length1, 0, length1 - arrowLength, -arrowLength)
+        context.restore()
+
+        let dir2 = [p3[0] - p2[0], p3[1] - p2[1]]
+        let angle2 = Math.atan(dir2[1] / dir2[0])
+        if (dir2[0] < 0) angle2 += Math.PI
+        let length2 = getMagnitude(dir2)
+
+        context.save()
+        context.translate(p2[0], p2[1])
+        context.rotate(angle2)
+        context.strokeStyle = "orange"
+        context.drawLine(0, 0, length2, 0)
+        context.drawLine(length2, 0, length2 - arrowLength, arrowLength)
+        context.drawLine(length2, 0, length2 - arrowLength, -arrowLength)
+        context.restore()
+      }
+
+      canvas.addEventListener("click", loop)
+      loop()
+    </script>
+  </body>
+</html>
