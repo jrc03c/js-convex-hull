@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+      canvas {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="index.js"></script>
+    <script>
+      CanvasRenderingContext2D.prototype.drawLine = function(x1, y1, x2, y2){
+        let self = this
+        self.beginPath()
+        self.moveTo(x1, y1)
+        self.lineTo(x2, y2)
+        self.stroke()
+        return self
+      }
+
+      let width = 512
+      let height = 512
+      let canvas = document.createElement("canvas")
+      canvas.width = width
+      canvas.height = height
+      document.body.appendChild(canvas)
+
+      let context = canvas.getContext("2d")
+      context.lineWidth = 4
+
+      function loop(){
+        context.fillStyle = "rgb(235, 235, 235)"
+        context.fillRect(0, 0, width, height)
+
+        // generate points
+        let points = []
+
+        for (let i=0; i<100; i++){
+          let radius = Math.random() * width / 3
+          let angle = Math.random() * 2 * Math.PI
+
+          points.push([
+            radius * Math.cos(angle) + width / 2,
+            radius * Math.sin(angle) + height / 2,
+          ])
+        }
+
+        // draw points
+        context.fillStyle = "black"
+
+        points.forEach(p => {
+          context.beginPath()
+          context.arc(p[0], p[1], 5, 0, Math.PI * 2, false)
+          context.fill()
+        })
+
+        // draw hull
+        let hull = getJarvisConvexHull(points)
+        context.strokeStyle = "red"
+        context.fillStyle = "rgba(255, 0, 0, 0.1)"
+        context.beginPath()
+
+        for (let i=0; i<hull.length-1; i++){
+          let p1 = hull[i]
+          let p2 = hull[i + 1]
+
+          if (i === 0) context.moveTo(p1[0], p1[1])
+          context.lineTo(p2[0], p2[1])
+        }
+
+        context.fill()
+        context.stroke()
+      }
+
+      canvas.addEventListener("click", loop)
+      loop()
+    </script>
+  </body>
+</html>
