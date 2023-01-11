@@ -1,20 +1,21 @@
 {
   "name": "@jrc03c/js-convex-hull",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "gets the convex hull of 2D points using the \"gift-wrapping\" (AKA \"Jarvis march\") algorithm",
   "main": "js-convex-hull.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jrc03c/js-convex-hull.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "convex",
+    "hull",
+    "js",
+    "javascript",
+    "boundary",
+    "points"
+  ],
+  "author": "jrc03c",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jrc03c/js-convex-hull/issues"
-  },
   "homepage": "https://github.com/jrc03c/js-convex-hull#readme"
 }

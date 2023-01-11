@@ -21,7 +21,7 @@ Add the script to your page:
 Or `require` it for use with bundlers:
 
 ```js
-const getConvexHull = require("js-convex-hull")
+const getConvexHull = require("@jrc03c/js-convex-hull")
 ```
 
 Then call the `getConvexHull` function (which returns the subset of points that represents the hull), passing in an array of 2D points:
