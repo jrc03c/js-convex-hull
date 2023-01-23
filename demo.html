@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title></title>
     <style>
       canvas {
@@ -10,9 +10,9 @@
     </style>
   </head>
   <body>
-    <script src="js-convex-hull.js"></script>
+    <script src="dist/js-convex-hull.js"></script>
     <script>
-      CanvasRenderingContext2D.prototype.drawLine = function(x1, y1, x2, y2){
+      CanvasRenderingContext2D.prototype.drawLine = function (x1, y1, x2, y2) {
         let self = this
         self.beginPath()
         self.moveTo(x1, y1)
@@ -31,15 +31,15 @@
       let context = canvas.getContext("2d")
       context.lineWidth = 4
 
-      function loop(){
+      function loop() {
         context.fillStyle = "rgb(235, 235, 235)"
         context.fillRect(0, 0, width, height)
 
         // generate points
         let points = []
 
-        for (let i=0; i<100; i++){
-          let radius = Math.random() * width / 3
+        for (let i = 0; i < 100; i++) {
+          let radius = (Math.random() * width) / 3
           let angle = Math.random() * 2 * Math.PI
 
           points.push([
@@ -63,7 +63,7 @@
         context.fillStyle = "rgba(255, 0, 0, 0.1)"
         context.beginPath()
 
-        for (let i=0; i<hull.length-1; i++){
+        for (let i = 0; i < hull.length - 1; i++) {
           let p1 = hull[i]
           let p2 = hull[i + 1]
 

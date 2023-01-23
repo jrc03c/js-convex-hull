@@ -7,7 +7,7 @@
 # Installation
 
 ```bash
-npm install --save https://github.com/jrc03c/js-convex-hull
+npm install --save @jrc03c/js-convex-hull
 ```
 
 # Usage
