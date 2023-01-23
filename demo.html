@@ -10,10 +10,12 @@
     </style>
   </head>
   <body>
+    <p>Click on the canvas to generate new points and a new hull.</p>
+
     <script src="dist/js-convex-hull.js"></script>
     <script>
       CanvasRenderingContext2D.prototype.drawLine = function (x1, y1, x2, y2) {
-        let self = this
+        const self = this
         self.beginPath()
         self.moveTo(x1, y1)
         self.lineTo(x2, y2)
@@ -21,14 +23,19 @@
         return self
       }
 
-      let width = 512
-      let height = 512
-      let canvas = document.createElement("canvas")
+      function remap(x, a, b, c, d) {
+        return ((d - c) * (x - a)) / (b - a) + c
+      }
+
+      const padding = 32
+      const width = 512
+      const height = 512
+      const canvas = document.createElement("canvas")
       canvas.width = width
       canvas.height = height
       document.body.appendChild(canvas)
 
-      let context = canvas.getContext("2d")
+      const context = canvas.getContext("2d")
       context.lineWidth = 4
 
       function loop() {
@@ -36,40 +43,61 @@
         context.fillRect(0, 0, width, height)
 
         // generate points
-        let points = []
+        const centroids = []
 
-        for (let i = 0; i < 100; i++) {
-          let radius = (Math.random() * width) / 3
-          let angle = Math.random() * 2 * Math.PI
-
-          points.push([
-            radius * Math.cos(angle) + width / 2,
-            radius * Math.sin(angle) + height / 2,
-          ])
+        for (let i = 0; i < parseInt(Math.random() * 7 + 1); i++) {
+          centroids.push([Math.random() * width, Math.random() * height])
         }
+
+        const points = []
+        const randomness = width / 5
+
+        for (let i = 0; i < 250; i++) {
+          const c = centroids[parseInt(Math.random() * centroids.length)]
+          const r = Math.random() * randomness
+          const a = Math.random() * 2 * Math.PI
+          const x = Math.cos(a) * r
+          const y = Math.sin(a) * r
+          points.push([c[0] + x, c[1] + y])
+        }
+
+        const xvals = points.map(p => p[0])
+        const yvals = points.map(p => p[1])
+        const xmin = Math.min(...xvals)
+        const xmax = Math.max(...xvals)
+        const ymin = Math.min(...yvals)
+        const ymax = Math.max(...yvals)
 
         // draw points
         context.fillStyle = "black"
 
         points.forEach(p => {
+          const x = remap(p[0], xmin, xmax, padding, width - padding)
+          const y = remap(p[1], ymin, ymax, padding, height - padding)
           context.beginPath()
-          context.arc(p[0], p[1], 5, 0, Math.PI * 2, false)
+          context.arc(x, y, 5, 0, Math.PI * 2, false)
           context.fill()
         })
 
         // draw hull
-        let hull = getConvexHull(points)
+        const hull = getConvexHull(points)
         context.strokeStyle = "red"
         context.fillStyle = "rgba(255, 0, 0, 0.1)"
         context.beginPath()
 
-        for (let i = 0; i < hull.length - 1; i++) {
-          let p1 = hull[i]
-          let p2 = hull[i + 1]
+        hull.forEach((h1, i) => {
+          const h2 = hull[(i + 1) % hull.length]
+          const h1x = remap(h1[0], xmin, xmax, padding, width - padding)
+          const h1y = remap(h1[1], ymin, ymax, padding, height - padding)
+          const h2x = remap(h2[0], xmin, xmax, padding, width - padding)
+          const h2y = remap(h2[1], ymin, ymax, padding, height - padding)
 
-          if (i === 0) context.moveTo(p1[0], p1[1])
-          context.lineTo(p2[0], p2[1])
-        }
+          if (i === 0) {
+            context.moveTo(h1x, h1y)
+          }
+
+          context.lineTo(h2x, h2y)
+        })
 
         context.fill()
         context.stroke()
