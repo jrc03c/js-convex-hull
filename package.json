@@ -1,6 +1,6 @@
 {
   "name": "@jrc03c/js-convex-hull",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "gets the convex hull of 2D points using the \"gift-wrapping\" (AKA \"Jarvis march\") algorithm",
   "main": "src/index.js",
   "repository": {
