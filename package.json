@@ -25,7 +25,7 @@
     "pub": "npm version patch --force && npm publish --access=public"
   },
   "devDependencies": {
-    "@jrc03c/js-math-tools": "^0.0.58",
+    "@jrc03c/js-math-tools": "^0.0.63",
     "esbuild": "^0.17.4",
     "eslint": "^8.32.0",
     "jest": "^29.4.2",
