@@ -1,3 +1,7 @@
+> ⚠️ **NOTE:** ⚠️ This project is being merged into a monorepo [here](https://github.com/jrc03c/monorepo/tree/main/packages/js-convex-hull). This repo will soon be archived.
+
+---
+
 # Introduction
 
 **js-convex-hull** gets the convex hull of a set of 2D points using [the "gift-wrapping" (AKA "Jarvis march") algorithm](https://en.wikipedia.org/wiki/Gift_wrapping_algorithm).
